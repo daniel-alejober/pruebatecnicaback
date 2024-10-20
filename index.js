@@ -13,28 +13,28 @@ app.use(express.json());
 app.use((req, res, next) => {
   const allowedOrigins = [process.env.FRONTURI];
   const origin = req.headers.origin;
+
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Authorization, Content-Type"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
+
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
   } else {
-    res.status(403).json({ message: "Forbidden: Invalid origin" });
+    return res.status(403).json({ message: "Forbidden: Invalid origin" });
   }
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
-const addOriginHeader = (req, res, next) => {
-  req.headers.origin = req.headers.origin;
+
   next();
-};
-app.use(addOriginHeader);
+});
 
 app.get("/", (req, res) => {
   res.send("pruebatecnica 1.0");
