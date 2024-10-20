@@ -10,7 +10,6 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
 
-console.log(process.env.FRONTURI);
 app.use((req, res, next) => {
   const allowedOrigins = [process.env.FRONTURI];
   const origin = req.headers.origin;
@@ -46,7 +45,6 @@ const port = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
-    console.log(process.env.MONGO_DB);
     await connectDB(process.env.MONGO_DB);
     app.listen(port, () => {
       console.log(`Server connected in the port ${port} 🐶`);
