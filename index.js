@@ -8,7 +8,7 @@ import rutasRegistro from "./routes/registro.js";
 dotenv.config();
 const app = express();
 app.use(morgan("tiny"));
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTURI }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
