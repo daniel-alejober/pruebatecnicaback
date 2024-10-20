@@ -16,12 +16,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/registro", rutasRegistro);
+const port = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_DB);
-    app.listen(process.env.PORT, () => {
-      console.log(`Server connected in the port ${process.env.PORT} 🐶`);
+    app.listen(port, () => {
+      console.log(`Server connected in the port ${port} 🐶`);
     });
   } catch (error) {
     console.log(error);
