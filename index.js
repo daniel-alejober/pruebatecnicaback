@@ -10,6 +10,7 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
 
+console.log(process.env.FRONTURI);
 app.use((req, res, next) => {
   const allowedOrigins = [process.env.FRONTURI];
   const origin = req.headers.origin;
